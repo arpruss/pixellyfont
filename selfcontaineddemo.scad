@@ -153,9 +153,9 @@ module renderGlyphArray(glyphArray,halign="left",valign="bottom",spacing=1,size=
     for (i=[0:n-1]) translate([leftOffset + sumTo(sizes,i) + spacing*glyphArray[i][1], bottomOffset]) renderGlyph(glyphArray[i][0], glyphArray[i][3], size=size,positiveScale=positiveScale,negativeScale=negativeScale,positiveColor=positiveColor,negativeColor=negativeColor,positiveExtrude=positiveExtrude,negativeExtrude=negativeExtrude);
 }
 
-module renderString(string,font=font_8x8,halign="left",spacing=1,size=10,positiveScale=1.01,negativeScale=0,positiveColor="blue",negativeColor="white",positiveExtrude=0,negativeExtrude=0) {
+module renderString(string,font=font_8x8,halign="left",valign="bottom",spacing=1,size=10,positiveScale=1.01,negativeScale=0,positiveColor="blue",negativeColor="white",positiveExtrude=0,negativeExtrude=0) {
     glyphArray = toGlyphArray(font,string);
-    renderGlyphArray(glyphArray,halign=halign,spacing=spacing,size=size,positiveScale=positiveScale,negativeScale=negativeScale,positiveColor=positiveColor,negativeColor=negativeColor,positiveExtrude=positiveExtrude,negativeExtrude=negativeExtrude);
+    renderGlyphArray(glyphArray,halign=halign,valign=valign,spacing=spacing,size=size,positiveScale=positiveScale,negativeScale=negativeScale,positiveColor=positiveColor,negativeColor=negativeColor,positiveExtrude=positiveExtrude,negativeExtrude=negativeExtrude);
 }
 
 len1 = getStringWidth(line1,font=font_mactall,size=size);
