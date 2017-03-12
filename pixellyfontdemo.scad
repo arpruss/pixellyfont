@@ -6,9 +6,13 @@ line2 = "Name!";
 size = 15;
 letterHeight = 2;
 backgroundHeight = 0.4;
+equalizeWidth = false;
 
-len1 = getStringWidth(line1,font=font_mactall,size=size);
-len2 = getStringWidth(line2,font=font_mactall,size=size);
+_len1 = getStringWidth(line1,font=font_mactall,size=size);
+_len2 = getStringWidth(line2,font=font_mactall,size=size);
+
+len1 = equalizeWidth ? max(_len1,_len2) : _len1;
+len2 = equalizeWidth ? max(_len1,_len2) : _len2;
 
 translate([-len1/2-1,-1,0]) cube([len1+2,size+2,backgroundHeight]);
     translate([-len2/2-1,-size+1,0]) 
