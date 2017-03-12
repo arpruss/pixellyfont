@@ -1,9 +1,8 @@
 include <fontdata.scad>;
 
-function _asc(c,m) = m <= 0 ? 32 : (chr(m)==c ? m : _asc(c,m-1));
-function asc(n) = _asc(n,256);
+function cp1252Decode(c) = let(found = search(c, cp1252)) len(found) > 0 ? found[0]+32 : 32;
 
-function toGlyphArray(font,s) = [for (i=[0:len(s)-1]) font[asc(s[i])-32]];
+function toGlyphArray(font,s) = [for (i=[0:len(s)-1]) font[cp1252Decode(s[i])-32]];
     
 function sumTo(array,n) = n <= 0 ? 0 : array[n-1] + sumTo(array,n-1);
 
