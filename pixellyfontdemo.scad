@@ -1,6 +1,6 @@
 include <pixellyfont.scad>;
 
-dots = true;
+dots = false;
 line1 = "Happy Birthday,";
 line2 = "Name!";
 size = 15;
