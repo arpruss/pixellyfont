@@ -59,8 +59,8 @@ module renderString(string,font=font_8x8,halign="left",valign="bottom",spacing=1
         }
     else {
         renderGlyphArray(glyphArray,halign=halign,valign=valign,spacing=spacing,size=size) {
-            color(positiveColor) if(positiveExtrude>0) translate([positivePixel/2,positivePixel/2,0]) cube([positivePixel,positivePixel,positiveExtrude]); else square([positivePixel,positivePixel],center=true);
-            color(negativeColor) if(negativeExtrude>0) translate([negativePixel/2,negativePixel/2,0]) cube([negativePixel,negativePixel,negativeExtrude]); else square([negativePixel,negativePixel],center=true);
+            color(positiveColor) if(positiveExtrude>0) translate([-positivePixel/2,-positivePixel/2,0]) cube([positivePixel,positivePixel,positiveExtrude]); else square([positivePixel,positivePixel],center=true);
+            color(negativeColor) if(negativeExtrude>0) translate([-negativePixel/2,-negativePixel/2,0]) cube([negativePixel,negativePixel,negativeExtrude]); else square([negativePixel,negativePixel],center=true);
         } 
     }
 }
