@@ -123,16 +123,18 @@ function sum(array) = sumTo(array,len(array));
 
 function getBit(x, n) = floor(x / pow(2,n)) % 2 == 1;
 
-module renderGlyph(width, bitmap, size=10, positiveScale=1, negativeScale=0, positiveColor="blue", negativeColor="white",positiveExtrude=0,negativeExtrude=0) {
+module renderGlyph(width, bitmap, size=10, positiveScale=1.01, negativeScale=0, positiveColor="blue", negativeColor="white",positiveExtrude=0,negativeExtrude=0) {
     height = len(bitmap);
     pixel = size/height;
     for (y=[0:height-1]) for(x=[0:width-1]) {
         bit = getBit(bitmap[height-1-y],width-1-x);
         size = bit ? positiveScale * pixel : negativeScale * pixel;
-        extrude = bit ? positiveExtrude : negativeExtrude;
-        translate([pixel*(x+0.5),pixel*(y+0.5)]) color(bit ? positiveColor : negativeColor) if(extrude>0) translate([0,0,extrude/2]) cube([size,size,extrude], center=true);
-            else
-        square(center=true, size=size);
+        if (size > 0) {
+            extrude = bit ? positiveExtrude : negativeExtrude;
+            translate([pixel*(x+0.5),pixel*(y+0.5)]) color(bit ? positiveColor : negativeColor) if(extrude>0) translate([0,0,extrude/2]) cube([size,size,extrude], center=true);
+                else
+            square(center=true, size=size);
+            }
     }
 }   
 
@@ -141,7 +143,7 @@ function getGlyphArrayWidth(glyphArray,spacing=1,size=10) = let(pixelSize = size
 
 function getStringWidth(string,font=font_8x8,spacing=1,size=10) = getGlyphArrayWidth(toGlyphArray(font,string),spacing=spacing,size=size);
     
-module renderGlyphArray(glyphArray,halign="left",valign="bottom",spacing=1,size=10,positiveScale=1,negativeScale=0,positiveColor="blue",negativeColor="white",positiveExtrude=0,negativeExtrude=0) {
+module renderGlyphArray(glyphArray,halign="left",valign="bottom",spacing=1,size=10,positiveScale=1.01,negativeScale=0,positiveColor="blue",negativeColor="white",positiveExtrude=0,negativeExtrude=0) {
     n = len(glyphArray);
     pixelSize = size / len(glyphArray[0][3]);
     sizes = [for (i=[0:n-1]) (glyphArray[i][1]+glyphArray[i][2])*pixelSize*spacing];
@@ -151,7 +153,7 @@ module renderGlyphArray(glyphArray,halign="left",valign="bottom",spacing=1,size=
     for (i=[0:n-1]) translate([leftOffset + sumTo(sizes,i) + spacing*glyphArray[i][1], bottomOffset]) renderGlyph(glyphArray[i][0], glyphArray[i][3], size=size,positiveScale=positiveScale,negativeScale=negativeScale,positiveColor=positiveColor,negativeColor=negativeColor,positiveExtrude=positiveExtrude,negativeExtrude=negativeExtrude);
 }
 
-module renderString(string,font=font_8x8,halign="left",spacing=1,size=10,positiveScale=1,negativeScale=0,positiveColor="blue",negativeColor="white",positiveExtrude=0,negativeExtrude=0) {
+module renderString(string,font=font_8x8,halign="left",spacing=1,size=10,positiveScale=1.01,negativeScale=0,positiveColor="blue",negativeColor="white",positiveExtrude=0,negativeExtrude=0) {
     glyphArray = toGlyphArray(font,string);
     renderGlyphArray(glyphArray,halign=halign,spacing=spacing,size=size,positiveScale=positiveScale,negativeScale=negativeScale,positiveColor=positiveColor,negativeColor=negativeColor,positiveExtrude=positiveExtrude,negativeExtrude=negativeExtrude);
 }
@@ -162,5 +164,5 @@ renderString(line1,halign="center",font=font_mactall,size=size,positiveScale=1.0
 len2 = getStringWidth(line2,font=font_mactall,size=size);
 translate([0,-size]) {
     translate([-len2/2-0.5,0,0]) cube([len2+1,size+1,backgroundHeight]);
-    renderString(line2,halign="center",font=font_mactall,positiveScale=1,size=size,positiveScale=1.01,negativeScale=0,positiveExtrude=1.5,negativeExtrude=0.4);
+    renderString(line2,halign="center",font=font_mactall,positiveScale=1.01,size=size,negativeScale=0,positiveExtrude=1.5,negativeExtrude=0.4);
 }

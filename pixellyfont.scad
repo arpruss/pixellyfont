@@ -16,10 +16,12 @@ module renderGlyph(width, bitmap, size=10, positiveScale=1.01, negativeScale=0, 
     for (y=[0:height-1]) for(x=[0:width-1]) {
         bit = getBit(bitmap[height-1-y],width-1-x);
         size = bit ? positiveScale * pixel : negativeScale * pixel;
+        if (size>0) {
         extrude = bit ? positiveExtrude : negativeExtrude;
         translate([pixel*(x+0.5),pixel*(y+0.5)]) color(bit ? positiveColor : negativeColor) if(extrude>0) translate([0,0,extrude/2]) cube([size,size,extrude], center=true);
             else
         square(center=true, size=size);
+        }
     }
 }   
 
