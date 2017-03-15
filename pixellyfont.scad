@@ -20,8 +20,8 @@ module renderGlyph(width, bitmap, invert=false, size=10) {
     }
 }   
 
-function getGlyphArrayWidth(glyphArray,spacing=1,size=10) = let(pixelSize = size / len(glyphArray[0][3]), n=len(glyphArray),
-    sizes = [for (i=[0:n-1]) (glyphArray[i][1]+glyphArray[i][2])*pixelSize*spacing]) sum([for (i=[0:n-1]) (glyphArray[i][1]+glyphArray[i][2])*pixelSize*spacing]);
+function getGlyphArrayWidth(glyphArray,spacing=1,size=10) = let(pixelSize = size / len(glyphArray[0][3]), n=len(glyphArray))
+    sum([for (i=[0:n-1]) (glyphArray[i][1]+glyphArray[i][2])*pixelSize*spacing]);
 
 function getStringWidth(string,font=font_8x8,spacing=1,size=10) = getGlyphArrayWidth(toGlyphArray(font,string),spacing=spacing,size=size);
     
