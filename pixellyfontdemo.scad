@@ -1,5 +1,6 @@
 include <pixellyfont.scad>;
 
+//<params>
 dots = false;
 line1 = "Happy Birthday,";
 line2 = "Name!";
@@ -7,6 +8,7 @@ size = 15;
 letterHeight = 2;
 backgroundHeight = 0.4;
 equalizeWidth = false;
+//</params>
 
 _len1 = getStringWidth(line1,font=font_mactall,size=size);
 _len2 = getStringWidth(line2,font=font_mactall,size=size);

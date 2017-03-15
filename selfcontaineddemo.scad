@@ -6,8 +6,10 @@ letterHeight = 2;
 backgroundHeight = 0.4;
 equalizeWidth = false;
 
-module dummy() {}
+module end_of_parameters_dummy() {}
 
+//include <pixellyfont.scad>;
+//include <fontdata.scad>;
 //Except for the public domain 8x8 font, these fonts are by Ron Buelow.
 //The permission I requested was for use in Sharp Wizard software,
 //but the permission given was blanket.
@@ -135,8 +137,8 @@ if (getBit(bitmap[height-1-y],width-1-x) != invert) translate([pixel*(x+0.5),pix
 }
 }
 
-function getGlyphArrayWidth(glyphArray,spacing=1,size=10) = let(pixelSize = size / len(glyphArray[0][3]), n=len(glyphArray),
-sizes = [for (i=[0:n-1]) (glyphArray[i][1]+glyphArray[i][2])*pixelSize*spacing]) sum([for (i=[0:n-1]) (glyphArray[i][1]+glyphArray[i][2])*pixelSize*spacing]);
+function getGlyphArrayWidth(glyphArray,spacing=1,size=10) = let(pixelSize = size / len(glyphArray[0][3]), n=len(glyphArray))
+sum([for (i=[0:n-1]) (glyphArray[i][1]+glyphArray[i][2])*pixelSize*spacing]);
 
 function getStringWidth(string,font=font_8x8,spacing=1,size=10) = getGlyphArrayWidth(toGlyphArray(font,string),spacing=spacing,size=size);
 
